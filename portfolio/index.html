@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poojitha Vempalli - Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button id="themeToggle" class="theme-toggle-btn">
+            <div class="toggle-track">
+                <div class="toggle-thumb">
+                    <div class="sun-icon">☀️</div>
+                    <div class="moon-icon">🌙</div>
+                </div>
+            </div>
+        </button>
+    </div>
+
+    <!-- 3D Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">PV</div>
+            <ul class="nav-menu">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <div class="profile-container">
+                <div class="profile-image">
+                    <img src="assets/port_pic.jpeg" alt="Poojitha Vempalli" class="profile-img">
+                    <!-- <div class="profile-ring"></div>
+                    <div class="profile-glow"></div> -->
+                </div>
+            </div>
+            <div class="hero-text">
+                <h1 class="hero-title">POOJITHA VEMPALLI</h1>
+                <p class="hero-subtitle">Full Stack Developer & Computer Science Graduate Student</p>
+                <div class="hero-cta">
+                    <a href="#about" class="btn btn--primary hero-btn">Explore My Journey</a>
+                    <a href="mailto:vempallipoojitha12@gmail.com" class="btn btn--outline hero-btn">Get In Touch</a>
+                </div>
+                <div class="contact-info">
+                    <span>📞 +1 940 843 0430</span>
+                    <span>📧 vempallipoojitha12@gmail.com</span>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/poojitha-vempalli/" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/PoojithaVempalli" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I'm a passionate Full Stack Developer and Computer Science graduate student at the University of North Texas, currently pursuing my Master's degree with a perfect 4.0 GPA. With experience at prestigious companies like Fashion Index and Capgemini Technology Services, I specialize in creating innovative web solutions and scalable applications.</p>
+                    <p>My journey in technology is driven by a love for problem-solving and creating impactful digital experiences. I enjoy working with cutting-edge technologies and continuously learning new skills to stay at the forefront of the rapidly evolving tech landscape.</p>
+                </div>
+                <div class="floating-elements">
+                    <div class="floating-card" data-float="1">🎓</div>
+                    <div class="floating-card" data-float="2">💻</div>
+                    <div class="floating-card" data-float="3">🚀</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="education">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <div class="education-card">
+                <div class="education-header">
+                    <h3>Master of Science in Computer Science</h3>
+                    <span class="duration">May 2025</span>
+                </div>
+                <div class="education-details">
+                    <p class="university">University of North Texas, Denton, Texas, USA</p>
+                    <p class="gpa">CGPA: 4.0/4.0</p>
+                    <div class="coursework">
+                        <h4>Coursework:</h4>
+                        <div class="coursework-grid">
+                            <span class="course-tag">Computer Algorithms</span>
+                            <span class="course-tag">Database Fundamentals</span>
+                            <span class="course-tag">Multimedia Computing</span>
+                            <span class="course-tag">Distributed Database Systems</span>
+                            <span class="course-tag">Big Data & Data Science</span>
+                            <span class="course-tag">Software Engineering</span>
+                            <span class="course-tag">AI Development</span>
+                            <span class="course-tag">Wireless Networks</span>
+                            <span class="course-tag">Machine Learning</span>
+                            <span class="course-tag">Deep Learning</span>
+                            <span class="course-tag">Computer Networks</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="experience-header">
+                            <h3>Full Stack Developer Intern</h3>
+                            <span class="company">Fashion Index</span>
+                            <span class="duration">Jan 2025 – Present</span>
+                            <span class="location">Remote</span>
+                        </div>
+                        <ul class="achievements">
+                            <li>Developed full-stack basic plan subscription feature with Stripe integration (Checkout + Billing Portal)</li>
+                            <li>Designed responsive UI for tiered plans using HTML, CSS, JS, and React</li>
+                            <li>Built backend APIs in Node.js/Express for Stripe sessions, webhooks, and pricing logic</li>
+                            <li>Managed MongoDB schema for real-time subscription syncing and access control</li>
+                            <li>Led end-to-end development from planning to deployment, ensuring performance and reliability</li>
+                            <li>Utilized Git for version control, ensuring clean commit history and collaborative workflow</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="experience-header">
+                            <h3>Software Engineer</h3>
+                            <span class="company">Capgemini Technology Services</span>
+                            <span class="duration">Nov 2022 – Sep 2023</span>
+                            <span class="location">Bangalore, India</span>
+                        </div>
+                        <ul class="achievements">
+                            <li>Proficient in developing and maintaining web applications with full-stack development focus</li>
+                            <li>Utilized Spring Boot and Core Java, leading to 15% increase in application efficiency with CI/CD pipeline</li>
+                            <li>Designed responsive user interfaces, resulting in 20% increase in user engagement</li>
+                            <li>Developed dynamic web pages with Angular, improving page load speed by 25% and user satisfaction by 30%</li>
+                            <li>Managed SQL Server and MongoDB databases, reducing query times by 20%</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="experience-header">
+                            <h3>Student Assistant</h3>
+                            <span class="company">Einstein Bros. Bagels – University of North Texas</span>
+                            <span class="duration">Nov 2023 – March 2025</span>
+                            <span class="location">Denton, Texas</span>
+                        </div>
+                        <ul class="achievements">
+                            <li>Provided efficient cashier and customer service, ensuring satisfaction through clear communication</li>
+                            <li>Handled high-volume customer interactions while maintaining positive atmosphere</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Programming Languages</h3>
+                    <div class="skill-tags">
+                        <div class="skill-tag">Java</div>
+                        <div class="skill-tag">Python</div>
+                        <div class="skill-tag">C</div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Databases</h3>
+                    <div class="skill-tags">
+                        <div class="skill-tag">MySQL</div>
+                        <div class="skill-tag">SQL Server</div>
+                        <div class="skill-tag">MongoDB</div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Web Technologies</h3>
+                    <div class="skill-tags">
+                        <div class="skill-tag">HTML5</div>
+                        <div class="skill-tag">CSS</div>
+                        <div class="skill-tag">JavaScript</div>
+                        <div class="skill-tag">React</div>
+                        <div class="skill-tag">Angular</div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Backend & APIs</h3>
+                    <div class="skill-tags">
+                        <div class="skill-tag">Node.js</div>
+                        <div class="skill-tag">Express.js</div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Version Control</h3>
+                    <div class="skill-tags">
+                        <div class="skill-tag">Git</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>Public Restroom Locator System</h3>
+                    <span class="project-date">May 2024</span>
+                </div>
+                <div class="project-description">
+                    <p>Developed a comprehensive web-based solution to locate public restrooms, enhancing accessibility for over 10,000 users using HTML, CSS, JavaScript, and MongoDB.</p>
+                </div>
+                <div class="project-achievements">
+                    <ul>
+                        <li>Implemented key features including user dashboards, multi-language support, map display, location-based search, real-time availability, QR code scanning, and admin dashboard, resulting in 35% increase in user engagement</li>
+                        <li>Enhanced user experience through real-time updates and user-generated feedback, reducing search time by 40%</li>
+                    </ul>
+                </div>
+                <div class="project-tech">
+                    <div class="tech-tag">HTML</div>
+                    <div class="tech-tag">CSS</div>
+                    <div class="tech-tag">JavaScript</div>
+                    <div class="tech-tag">Firebase</div>
+                    <div class="tech-tag">Visual Studio Code</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="certifications">
+        <div class="container">
+            <h2 class="section-title">Certifications</h2>
+            <div class="cert-grid">
+                <div class="cert-badge">
+                    <div class="cert-icon">☁️</div>
+                    <h3>Microsoft Certified</h3>
+                    <p>Azure Fundamentals</p>
+                </div>
+                <div class="cert-badge">
+                    <div class="cert-icon">🚀</div>
+                    <h3>AWS Certified</h3>
+                    <p>Developer Associate</p>
+                </div>
+                <div class="cert-badge">
+                    <div class="cert-icon">☁️</div>
+                    <h3>AWS Certified</h3>
+                    <p>Cloud Practitioner</p>
+                </div>
+                <div class="cert-badge">
+                    <div class="cert-icon">🌐</div>
+                    <h3>Google Cloud Certified</h3>
+                    <p>Cloud Digital Leader</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3D Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2 class="section-title">Achievements Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item" data-index="0">
+                    <img src="assets/p4.png" alt="Achievement Photo 1">
+                    <div class="gallery-overlay">
+                        <span>Achievement Photo 1</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-index="1">
+                    <img src="assets/p3.png" alt="Achievement Photo 2">
+                    <div class="gallery-overlay">
+                        <span>Achievement Photo 2</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-index="4">
+                    <img src="assets/p4.png" alt="Achievement Photo 3">
+                    <div class="gallery-overlay">
+                        <span>Achievement Photo 3</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-index="5">
+                    <img src="assets/p9.png" alt="Achievement Photo 4">
+                    <div class="gallery-overlay">
+                        <span>Achievement Photo 4</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-index="2">
+                    <img src="assets/p2.jpg" alt="Graduation Day Photo 1">
+                    <div class="gallery-overlay">
+                        <span>Graduation Day Photo 1</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-index="3">
+                    <img src="assets/p6.jpg" alt="Graduation Day Photo 2">
+                    <div class="gallery-overlay">
+                        <span>Graduation Day Photo 2</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-index="6">
+                    <img src="assets/p7.jpg" alt="Graduation Day Photo 3">
+                    <div class="gallery-overlay">
+                        <span>Graduation Day Photo 3</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-index="7">
+                    <img src="assets/p8.jpg" alt="Graduation Day Photo 4">
+                    <div class="gallery-overlay">
+                        <span>Graduation Day Photo 4</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info-section">
+                    <h3>Let's Connect</h3>
+                    <p>I'm always open to discussing new opportunities, interesting projects, or just having a chat about technology and innovation.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <span class="contact-icon">📞</span>
+                            <span>+1 940 843 0430</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">📧</span>
+                            <span>vempallipoojitha12@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">💼</span>
+                            <a href="https://www.linkedin.com/in/poojitha-vempalli/" target="_blank">LinkedIn Profile</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">🔗</span>
+                            <a href="https://github.com/PoojithaVempalli" target="_blank">GitHub Profile</a>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea id="message" name="message" class="form-control" rows="6" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--full-width">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Poojitha Vempalli. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="https://www.linkedin.com/in/poojitha-vempalli/" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/PoojithaVempalli" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Gallery Modal -->
+    <div id="galleryModal" class="modal hidden">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <img id="modalImage" src="" alt="">
+            <div class="modal-nav">
+                <button id="modalPrev" class="modal-nav-btn">❮</button>
+                <button id="modalNext" class="modal-nav-btn">❯</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
