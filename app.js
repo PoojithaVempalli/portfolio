@@ -1,4 +1,5 @@
 // Poojitha Vempalli - 3D Interactive Portfolio JavaScript
+gsap.registerPlugin(ScrollToPlugin);
 
 // Theme Management
 class ThemeManager {
@@ -467,11 +468,24 @@ class ScrollAnimations {
                 { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out' }
             );
         } else if (element.classList.contains('education-card')) {
-            gsap.fromTo(element,
-                { y: 50, opacity: 0, rotationX: -15 },
-                { y: 0, opacity: 1, rotationX: 0, duration: 1, ease: 'back.out(1.7)' }
-            );
-        } else if (element.classList.contains('timeline-item')) {
+    // Animate the card container first
+    gsap.fromTo(element,
+        { y: 60, opacity: 0, rotationX: -20, transformPerspective: 1000 },
+        { y: 0, opacity: 1, rotationX: 0, duration: 1, ease: 'power3.out' }
+    );
+    
+    // Then, animate the inner elements with a delay for a cascading effect
+    gsap.fromTo(element.querySelectorAll('.education-header, .university, .gpa, .coursework h4'),
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, delay: 0.4, ease: 'power2.out' }
+    );
+
+    gsap.fromTo(element.querySelectorAll('.course-tag'), {
+        scale: 0.5, opacity: 0
+    }, {
+        scale: 1, opacity: 1, stagger: 0.05, delay: 0.8, ease: 'back.out(1.7)'
+    });
+} else if (element.classList.contains('timeline-item')) {
             const items = Array.from(element.parentNode.children);
             const index = items.indexOf(element);
             const isEven = index % 2 === 1;
@@ -652,6 +666,73 @@ class HoverEffects {
     }
 }
 
+class SkillSphere {
+    constructor(canvasId) {
+        this.canvas = document.getElementById(canvasId);
+        if (!this.canvas) {
+            console.error("SkillSphere canvas not found!");
+            return;
+        }
+        this.skills = [
+            { href: "#skills", text: "Java" }, { href: "#skills", text: "Python" },
+            { href: "#skills", text: "JavaScript" }, { href: "#skills", text: "React" },
+            { href: "#skills", text: "Angular" }, { href: "#skills", text: "Node.js" },
+            { href: "#skills", text: "Spring Boot" }, { href: "#skills", text: "SQL" },
+            { href: "#skills", text: "MongoDB" }, { href: "#skills", text: "HTML5" },
+            { href: "#skills", text: "CSS" }, { href: "#skills", text: "Git" },
+            { href: "#skills", text: "Docker" }, { href: "#skills", text: "AWS" },
+            { href: "#skills", text: "CI/CD" }, { href: "#skills", text: "REST APIs" }
+        ];
+        this.init();
+    }
+
+    init() {
+        // Create a list of skill links for TagCanvas to use
+        const skillList = document.createElement('ul');
+        skillList.id = 'skill-list-for-canvas';
+        skillList.style.display = 'none'; // We hide it, TagCanvas reads it
+
+        this.skills.forEach(skill => {
+            const listItem = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = skill.href;
+            link.textContent = skill.text;
+            listItem.appendChild(link);
+            skillList.appendChild(listItem);
+        });
+
+        this.canvas.parentElement.appendChild(skillList);
+        this.startCanvas();
+    }
+
+    startCanvas() {
+        try {
+            TagCanvas.Start('skill-canvas', 'skill-list-for-canvas', {
+                textColour: '#8b5cf6', // Use your accent purple color
+                outlineColour: 'transparent',
+                reverse: true,
+                depth: 0.8,
+                maxSpeed: 0.05,
+                initial: [0.05, -0.05],
+                wheelZoom: false,
+                textHeight: 18,
+                textFont: '"FKGroteskNeue", "Geist", sans-serif',
+                weight: true,
+                weightMode: 'bold',
+            });
+        } catch (e) {
+            // If the canvas is not visible, hide the container
+            console.error("TagCanvas failed to start:", e);
+            if (this.canvas.parentElement) {
+                this.canvas.parentElement.style.display = 'none';
+            }
+        }
+
+        // Make it responsive
+        TagCanvas.Resize('skill-canvas');
+    }
+}
+
 // Navigation Manager
 class NavigationManager {
     constructor() {
@@ -665,32 +746,28 @@ class NavigationManager {
         }
     }
 
-    bindScrollEffect() {
-        let lastScrollY = 0;
-        let ticking = false;
+        bindScrollEffect() {
+            let ticking = false;
 
-        const updateNav = () => {
-            const currentScrollY = window.scrollY;
-            
-            if (currentScrollY > 100) {
-                this.nav.style.background = 'rgba(255, 255, 255, 0.95)';
-                this.nav.style.backdropFilter = 'blur(20px)';
-            } else {
-                this.nav.style.background = 'rgba(255, 255, 255, 0.1)';
-                this.nav.style.backdropFilter = 'blur(20px)';
-            }
+            const updateNav = () => {
+                const currentScrollY = window.scrollY;
+                
+                
+                this.nav.classList.toggle('nav--scrolled', currentScrollY > 100);
 
-            lastScrollY = currentScrollY;
-            ticking = false;
-        };
+                ticking = false;
+            };
 
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                requestAnimationFrame(updateNav);
-                ticking = true;
-            }
-        });
-    }
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    requestAnimationFrame(updateNav);
+                    ticking = true;
+                }
+            });
+
+            updateNav();
+        }
+
 }
 
 // Main Application
@@ -703,7 +780,7 @@ class PortfolioApp {
     init() {
         // Initialize immediately for faster loading
         this.initializeComponents();
-        
+        this.setupHeroInteraction();
         // Run entrance animations after DOM is fully loaded
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => {
@@ -723,7 +800,8 @@ class PortfolioApp {
             this.components.contactForm = new ContactForm();
             this.components.hoverEffects = new HoverEffects();
             this.components.navigationManager = new NavigationManager();
-            
+            this.components.skillSphere = new SkillSphere('skill-canvas');
+
             // Initialize 3D scene if Three.js is available
             if (window.THREE) {
                 this.components.backgroundScene = new BackgroundScene();
@@ -731,6 +809,38 @@ class PortfolioApp {
         } catch (error) {
             console.log('Some components failed to initialize:', error);
         }
+    }
+ setupHeroInteraction() {
+        if (!window.gsap) return;
+
+        const heroSection = document.getElementById('hero');
+        const heroContent = document.querySelector('.hero-content');
+
+        if (!heroSection || !heroContent) return;
+
+        heroSection.addEventListener('mousemove', (e) => {
+            const { offsetWidth: width, offsetHeight: height } = heroSection;
+            const { clientX: x, clientY: y } = e;
+
+            const rotateX = (y / height - 0.5) * -15; // Max rotation 7.5 deg
+            const rotateY = (x / width - 0.5) * 15;  // Max rotation 7.5 deg
+
+            gsap.to(heroContent, {
+                duration: 0.8,
+                rotationX: rotateX,
+                rotationY: rotateY,
+                ease: 'power2.out'
+            });
+        });
+
+        heroSection.addEventListener('mouseleave', () => {
+            gsap.to(heroContent, {
+                duration: 1,
+                rotationX: 0,
+                rotationY: 0,
+                ease: 'elastic.out(1, 0.5)'
+            });
+        });
     }
 
     setupInitialAnimations() {
@@ -757,13 +867,7 @@ class PortfolioApp {
             duration: 0.6,
             ease: 'power2.out'
         }, '-=0.3')
-        .from('.hero-cta .btn', {
-            scale: 0,
-            rotation: 360,
-            duration: 0.5,
-            ease: 'back.out(1.7)',
-            stagger: 0.1
-        }, '-=0.2');
+        
 
         // Floating elements continuous animation
         gsap.to('.floating-card', {
@@ -777,6 +881,19 @@ class PortfolioApp {
                 from: 'random'
             }
         });
+
+        document.querySelectorAll('.floating-card').forEach(card => {
+    gsap.to(card, {
+        x: "random(-15, 15, 5)", // Random horizontal movement
+        y: "random(-20, 20, 5)", // Random vertical movement
+        rotation: "random(-10, 10, 2)", // Random rotation
+        duration: "random(3, 5)",
+        ease: 'none',
+        repeat: -1,
+        yoyo: true,
+        delay: "random(0, 2)"
+    });
+});
     }
 }
 

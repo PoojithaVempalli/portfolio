@@ -755,6 +755,7 @@ select.form-control {
   --gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
   --gradient-secondary: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
   --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-bg-scrolled: rgba(252, 252, 249, 0.9);
   --glass-border: rgba(255, 255, 255, 0.2);
   
   /* Theme-specific overrides */
@@ -767,6 +768,7 @@ select.form-control {
 /* Dark mode overrides */
 [data-theme="dark"] {
   --glass-bg: rgba(0, 0, 0, 0.2);
+  --glass-bg-scrolled: rgba(31, 33, 33, 0.85);
   --glass-border: rgba(255, 255, 255, 0.1);
   --portfolio-bg: var(--color-charcoal-700);
   --portfolio-surface: var(--color-charcoal-800);
@@ -887,7 +889,12 @@ body {
   background: var(--glass-bg);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--glass-border);
-  transition: all var(--duration-normal) var(--ease-standard);
+  transition: background-color var(--duration-normal) var(--ease-standard);
+  /* transition: all var(--duration-normal) var(--ease-standard); */
+}
+
+.nav--scrolled {
+  background-color: var(--glass-bg-scrolled);
 }
 
 .nav-container {
@@ -944,17 +951,23 @@ body {
   width: 100%;
 }
 
+
+
 /* Hero Section */
 .hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  padding: var(--space-32) var(--space-20);
+    perspective: 1200px; /* Add this line */
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: var(--space-32) var(--space-20);
+    overflow: hidden;
 }
 
 .hero-content {
+    transform-style: preserve-3d; /* Add this to allow children to be transformed in 3D */
+    will-change: transform; /* Performance optimization */
   display: grid;
   grid-template-columns: 1fr 1.5fr;
   gap: var(--space-32);
@@ -1011,28 +1024,40 @@ body {
 }
 
 .hero-title {
-  font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: var(--font-weight-bold);
-  margin-bottom: var(--space-16);
+  margin-bottom: var(--space-12); /* Reduced from 16px */
   background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: slideInRight 1s var(--ease-standard);
+  line-height: 1.1; /* Added for tighter line spacing */
 }
 
 .hero-subtitle {
-  font-size: var(--font-size-xl);
-  color: var(--portfolio-text-secondary);
-  margin-bottom: var(--space-32);
-  animation: slideInRight 1s var(--ease-standard) 0.2s both;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-24); /* Reduced from 32px */
+  line-height: 1.4; /* Added for better text flow */
+  max-width: 600px; /* Prevents text from becoming too wide */
 }
 
+/* Add this to the mobile styles for better centering */
+@media (max-width: 992px) {
+  .hero-subtitle {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
 .hero-cta {
   display: flex;
   gap: var(--space-16);
   margin-bottom: var(--space-24);
   animation: slideInRight 1s var(--ease-standard) 0.4s both;
+}
+
+.hero-cta .btn {
+  color: var(--portfolio-text);
+  background: var(--accent-purple);
 }
 
 .hero-btn {
@@ -1148,6 +1173,8 @@ section {
   transform-style: var(--transform-style);
   cursor: pointer;
   transition: all var(--duration-normal) var(--ease-standard);
+      color: var(--accent-purple); /* This will color the SVG */
+    stroke: currentColor; /* Make SVG inherit color */
 }
 
 .floating-card[data-float="1"] {
@@ -1392,6 +1419,25 @@ section {
 .skill-tag:hover {
   transform: translateY(-2px) scale(1.1);
   box-shadow: var(--shadow-md);
+}
+
+/* Interactive Skill Sphere Styles */
+#skill-sphere-container {
+    position: relative;
+    width: 100%;
+    min-height: 350px; /* Give it some space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: grab;
+}
+
+#skill-sphere-container:active {
+    cursor: grabbing;
+}
+
+#skill-canvas {
+    max-width: 100%;
 }
 
 /* Projects Section */
@@ -1758,6 +1804,28 @@ section {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  
+  .timeline::before {
+    left: 20px;
+    transform: translateX(-50%);
+  }
+  
+  /* THIS IS THE FIX: Target all items explicitly to override desktop styles */
+  .timeline-item,
+  .timeline-item:nth-child(odd),
+  .timeline-item:nth-child(even) {
+    padding-left: 50px;
+    padding-right: 0; /* Ensure right padding is reset */
+    text-align: left;
+  }
+  
+  .timeline-marker {
+    left: 20px;
+  }
+
+  .timeline-content .achievements {
+    padding-left: 20px !important; /* Ensure list indentation is correct on both sides */
+  }
   .nav-menu {
     display: none;
   }
