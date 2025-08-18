@@ -176,5 +176,4 @@ app.listen(PORT, () => {
   }
 });
 
-// at the end of server.js
 module.exports = app;
