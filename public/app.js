@@ -22,7 +22,10 @@ class ThemeManager {
     }
 
     applyTheme() {
+        // Set both attributes to ensure both base and custom styles update
         document.documentElement.setAttribute('data-theme', this.theme);
+        document.documentElement.setAttribute('data-color-scheme', this.theme); // <-- THIS IS THE FIX
+
         document.body.classList.toggle('dark-mode', this.theme === 'dark');
         localStorage.setItem('portfolio-theme', this.theme);
         
